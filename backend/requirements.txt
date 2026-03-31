@@ -6,3 +6,4 @@ werkzeug==3.0.1
 tensorflow
 Pillow==10.2.0
 numpy==1.26.3
+gunicorn==21.2.0
