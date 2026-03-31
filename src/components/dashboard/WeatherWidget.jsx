@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 const LOCATION_KEY = 'smartcrop_weather_location';
 
 const WeatherWidget = () => {
-    const [location, setLocation] = useState(() => localStorage.getItem(LOCATION_KEY) || 'New Delhi');
+    const [location, setLocation] = useState(() => localStorage.getItem(LOCATION_KEY) || 'Ahmedabad');
     const [weather, setWeather] = useState(null);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
@@ -152,6 +152,34 @@ const WeatherWidget = () => {
         setIsSearching(false);
     };
 
+    const detectLocation = () => {
+        if (!navigator.geolocation) {
+            toast.error("Geolocation is not supported by your browser");
+            return;
+        }
+        setLoading(true);
+        navigator.geolocation.getCurrentPosition(
+            async (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                try {
+                    const res = await axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`);
+                    const cityName = res.data.city || res.data.locality || "Current Location";
+                    setLocation(cityName);
+                    localStorage.setItem(LOCATION_KEY, cityName);
+                    await fetchWeatherByCoords(lat, lon, cityName);
+                } catch (err) {
+                    setLocation("Current Location");
+                    await fetchWeatherByCoords(lat, lon, "Current Location");
+                }
+            },
+            (error) => {
+                toast.error("Unable to retrieve your location. Check browser permissions.");
+                setLoading(false);
+            }
+        );
+    };
+
     // Close suggestions on outside click
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -231,14 +259,21 @@ const WeatherWidget = () => {
                                 )}
                             </motion.div>
                         ) : (
-                            <motion.button
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                onClick={() => setIsSearching(true)}
-                                className="p-2 bg-slate-100 rounded-xl hover:bg-slate-200 transition-colors"
-                            >
-                                <Search className="h-5 w-5 text-slate-600" />
-                            </motion.button>
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-2">
+                                <button
+                                    onClick={detectLocation}
+                                    className="p-2 text-emerald-600 bg-emerald-50 rounded-xl hover:bg-emerald-100 transition-colors"
+                                    title="Auto-detect my location"
+                                >
+                                    <MapPin className="h-5 w-5" />
+                                </button>
+                                <button
+                                    onClick={() => setIsSearching(true)}
+                                    className="p-2 bg-slate-100 rounded-xl hover:bg-slate-200 transition-colors"
+                                >
+                                    <Search className="h-5 w-5 text-slate-600" />
+                                </button>
+                            </motion.div>
                         )}
                     </AnimatePresence>
                 </div>

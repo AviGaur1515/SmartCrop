@@ -40,7 +40,10 @@ const Sidebar = () => {
                 style={{ minWidth: collapsed ? 72 : 260 }}
             >
                 {/* Logo */}
-                <div className="flex items-center gap-3 px-4 py-5 border-b border-slate-800">
+                <div 
+                    onClick={() => setCollapsed(!collapsed)} 
+                    className="flex items-center gap-3 px-4 py-5 border-b border-slate-800 cursor-pointer hover:bg-slate-800/50 transition-colors"
+                >
                     <div className="h-9 w-9 bg-emerald-600 rounded-xl flex items-center justify-center shrink-0">
                         <Leaf className="h-5 w-5 text-white" />
                     </div>
@@ -54,16 +57,6 @@ const Sidebar = () => {
                         )}
                     </AnimatePresence>
                 </div>
-
-                {/* Collapse toggle */}
-                <button
-                    onClick={() => setCollapsed(!collapsed)}
-                    className="absolute top-5 -right-3 h-6 w-6 bg-slate-700 hover:bg-emerald-600 rounded-full flex items-center justify-center transition-colors z-50"
-                >
-                    {collapsed
-                        ? <ChevronRight className="h-3.5 w-3.5 text-white" />
-                        : <ChevronLeft className="h-3.5 w-3.5 text-white" />}
-                </button>
 
                 {/* Navigation */}
                 <nav className="flex-1 py-4 px-2 space-y-1 overflow-y-auto">
