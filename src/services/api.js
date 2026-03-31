@@ -86,9 +86,8 @@ export const analysisService = {
         try {
             const formData = new FormData();
             formData.append('file', file);
-            const token = localStorage.getItem(TOKEN_KEY);
-            const response = await axios.post('http://localhost:5000/api/predict', formData, {
-                headers: { 'Content-Type': 'multipart/form-data', 'Authorization': `Bearer ${token}` }
+            const response = await api.post('/predict', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
             });
             return { success: true, data: response.data };
         } catch (error) {
