@@ -1,4 +1,4 @@
-# SmartCrop - Professional AgTech Platform
+# SmartCrop - Professional AgriTech Platform
 
 A production-ready agricultural disease detection platform powered by AI. Built with React and Flask, SmartCrop helps farmers detect crop diseases using computer vision and provides actionable treatment recommendations.
 
@@ -7,8 +7,8 @@ A production-ready agricultural disease detection platform powered by AI. Built 
 - **AI-Powered Disease Detection**: Upload crop images for instant disease analysis
 - **38 Disease Classes**: Supports detection across multiple crops including tomato, potato, corn, grape, apple, and more
 - **Smart Prescriptions**: Get detailed diagnosis, immediate action steps, and prevention measures
-- **Professional Dashboard**: Track scans, view statistics, and monitor weather conditions
-- **Mock Authentication**: Demo-ready login system (easily replaceable with Firebase/Auth0)
+- **Professional Dashboard**: Track scans, view statistics, and manage your crop history
+- **Secure Authentication**: JWT-based login system with secure SQLite backend
 - **Responsive Design**: Mobile-first design optimized for farmers in the field
 
 ## 🚀 Tech Stack
@@ -122,20 +122,16 @@ FINAL/
 
 - **Primary Color**: Forest Green (#10b981)
 - **Typography**: Inter & Poppins
-- **Theme**: Modern AgTech with professional SaaS aesthetic
+- **Theme**: Modern AgriTech with professional SaaS aesthetic
 - **Animations**: Framer Motion for smooth, engaging interactions
 
 ## 🔐 Authentication
 
-Currently uses mock authentication for demo purposes:
-- Any email/password combination will log you in
-- Session stored in localStorage
-- Easily replaceable with Firebase, Auth0, or custom backend
-
-To replace with real auth:
-1. Modify `src/utils/mockAuth.js`
-2. Implement your auth provider's SDK
-3. Update login/register components
+SmartCrop uses a secure, custom-built authentication system:
+- Secure JWT (JSON Web Tokens) for session management
+- Passwords hashed using Werkzeug security
+- Persistent user accounts and scan history stored securely in a local SQLite database (`smartcrop.db`)
+- Protected backend API routes requiring authorization headers
 
 ## 🧪 Model Integration
 
