@@ -1,0 +1,51 @@
+# 🚀 SmartCrop: Quick Run Guide
+
+Follow these steps to get the **SmartCrop** AgTech platform running on your system.
+
+### 📋 Prerequisites
+- **Node.js**: [Download here](https://nodejs.org/) (Version 18 or 20 recommended)
+- **Python**: [Download here](https://www.python.org/) (Version 3.10+ recommended)
+
+---
+
+### Phase 1: Backend Setup (Python)
+1. Open a terminal/command prompt in the `backend/` folder.
+2. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   ```
+3. Activate the environment:
+   - **Windows**: `venv\Scripts\activate`
+   - **Mac/Linux**: `source venv/bin/activate`
+4. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+5. Start the backend:
+   ```bash
+   python app.py
+   ```
+   *Keep this terminal open.*
+
+---
+
+### Phase 2: Frontend Setup (React/Vite)
+1. Open a **new** terminal in the main project folder (the root).
+2. Install frontend packages:
+   ```bash
+   npm install
+   ```
+3. Start the frontend:
+   ```bash
+   npm run dev
+   ```
+4. Open your browser to the URL shown (usually `http://localhost:5173`).
+
+---
+
+### 🎯 How to Use
+1. **Login**: You can use any email and password (the demo accepts everything).
+2. **Analyze**: Go to "New Scan", upload a leaf image, and wait for the AI result!
+3. **Crops**: Register your own "fields" and link them to your scans to see health trends.
+
+*Built with React, Tailwind, and TensorFlow.*
